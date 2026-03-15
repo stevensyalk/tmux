@@ -1,3 +1,4 @@
 #!/bin/sh
 
-exec ssh 100.100.101.87 -t "tmux new -A -s main"
+exec ssh -tt 100.100.101.87 '
+tmux new-session -A -s ci "cd \"$HOME\" && exec \"$SHELL\"" '
