@@ -2,3 +2,13 @@
 
 exec ssh -tt 100.100.101.87 '
 tmux new-session -A -s main "cd \"$HOME/client-tools\" && exec \"$SHELL\"" '
+
+
+
+exec ssh -tt 100.100.101.87 '
+if tmux has-session -t main 2>/dev/null; then
+    exec tmux attach -t main
+else
+    exec tmux new-session -s main "cd \"$HOME/client-tools\" && exec \"$SHELL\""
+fi
+'

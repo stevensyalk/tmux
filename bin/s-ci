@@ -1,5 +1,9 @@
 #!/bin/sh
 
 exec ssh -tt 100.100.101.87 '
-tmux new-session -A -s ci "cd \"$HOME/ci/CI\" && exec \"$SHELL\""
+if tmux has-session -t ci 2>/dev/null; then
+    exec tmux attach -t ci
+else
+    exec tmux new-session -s ci "cd \"$HOME/ci/CI\" && exec \"$SHELL\""
+fi
 '
